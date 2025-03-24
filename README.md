@@ -16,7 +16,7 @@
 ![Low Level Design](./design/low-level.png)
 
 ## Custom NiFi Docker
-NiFi docker container is a customization from the [official Apache Nifi Docker Image](https://hub.docker.com/r/apache/nifi) to further extend support for OpenID Connect (OIDC) Authentication mechanism, allow configuration files to scale for dynamic nodes and embedded nifi tls toolkit binary running in client mode for node certificate generation.
+Le conteneur Docker NiFi est une personnalisation de l'image officielle Apache Nifi Docker](https://hub.docker.com/r/apache/nifi) pour étendre la prise en charge du mécanisme d'authentification OpenID Connect (OIDC), permettre l'évolutivité des fichiers de configuration pour les nœuds dynamiques et intégrer le binaire de la boîte à outils TLS NiFi exécuté en mode client pour la génération de certificats de nœud.
 
 ### 1. Build Docker
 Switch to `nifi` directory
@@ -26,7 +26,7 @@ $ docker build -t custom-nifi .
 ```
 
 ## Custom NiFi Registry
-NiFi Registry docker container is a customization from the [official Apache Nifi Registry Docker Image](https://hub.docker.com/r/apache/nifi-registry) to further extend support for OpenID Connect (OIDC) Authentication mechanism and embedded nifi tls toolkit binary running in client mode for node certificate generation.
+Le conteneur Docker NiFi Registry est une personnalisation de l'image Docker officielle du registre Apache Nifi (https://hub.docker.com/r/apache/nifi-registry) pour étendre la prise en charge du mécanisme d'authentification OpenID Connect (OIDC) et du binaire de la boîte à outils TLS nifi intégrée, exécuté en mode client, pour la génération de certificats de nœuds.
 
 ### 1. Build Docker
 Switch to `nifi-registry` directory
@@ -36,8 +36,8 @@ $ docker build -t custom-registry .
 ```
 
 ## Custom NiFi CA Docker
-NiFi CA docker container is a customization from the [official Apache Nifi Toolkit Docker Image](https://hub.docker.com/r/apache/nifi-toolkit).
-NiFi Cluster today relies on NiFi TLS-Toolkit to issue keystores,truststores and security populated configuration files which makes the certificate generation much easier and can scale to any number of on-demand nodes to avoid tedious and error-prone process. All NiFi nodes will have embedded NiFi CA client (running NiFi Toolkit in client mode) to request for node certificate from independent NiFi CA Sever (running NiFi Toolkit in server mode). The client will issue Certificate Signing Requests (CSR) to Server which then signs them. This happens by enabling both client and server to validate each other's identity through a shared secert allowing mutual TLS communication between nodes and to external applications without needing to trust each other first.
+Le conteneur Docker d'autorité de certification NiFi est une personnalisation de l'image Docker officielle d'Apache Nifi Toolkit (https://hub.docker.com/r/apache/nifi-toolkit).
+Le cluster NiFi s'appuie aujourd'hui sur NiFi TLS-Toolkit pour générer des keystores, des truststores et des fichiers de configuration sécurisés. Cela simplifie considérablement la génération de certificats et permet une évolutivité vers un nombre illimité de nœuds à la demande, évitant ainsi des processus fastidieux et sujets aux erreurs. Tous les nœuds NiFi intègrent un client d'autorité de certification NiFi (exécutant NiFi Toolkit en mode client) pour demander un certificat de nœud à un serveur d'autorité de certification NiFi indépendant (exécutant NiFi Toolkit en mode serveur). Le client envoie des demandes de signature de certificat (CSR) au serveur, qui les signe ensuite. Cela permet au client et au serveur de valider mutuellement leur identité via un certificat partagé, permettant ainsi une communication TLS mutuelle entre les nœuds et avec les applications externes sans avoir à se faire mutuellement confiance.
 
 ### 1. Build Docker
 Switch to `nifi-ca` directory
@@ -48,7 +48,7 @@ $ docker build -t custom-toolkit .
 
 ## Deploy NiFi Stack
 ### Usage (Development)
-To try this stack out-of-the-box, you need a local `.env` where environment variables are specified which will be available to containers
+Pour tester cette pile prête à l'emploi, vous avez besoin d'un fichier `.env` local où sont spécifiées les variables d'environnement qui seront disponibles pour les conteneurs.
 
 ```bash
 # Pre-install changes, this will perform necessary instructions to run our compose services 
@@ -63,7 +63,7 @@ $ docker ps
 ```
 
 ### Usage (Production)
-For Production, you must leverage docker swarm mode which orchestrate and managed the stack. To try this stack, simply run
+Pour la production, vous devez utiliser le mode Docker Swarm qui orchestre et gère la pile. Pour tester cette pile, exécutez simplement
 
 ```bash
 # Pre-install changes, this will perform necessary instructions to run our swarm services such as creating secrets
@@ -86,7 +86,7 @@ lv7uevazcyty   nifi-stack_nifi-registry   replicated   1/1        apache/nifi-re
 t2hbu9984rkx   nifi-stack_zookeeper       replicated   1/1        zookeeper:3.6.2               *:30005->2181/tcp
 ```
 
-After deploying the stack, you should have access to the UI
+Après avoir déployé l'environnement logiciel, vous devriez avoir accès à l'interface utilisateur.
 - NiFi: `https://localhost/nifi/`
 - NiFi Registry: `http://localhost/nifi-registry/`
 
